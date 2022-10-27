@@ -56,7 +56,7 @@ function ServiceScreen() {
     const existItem = cart.cartItems.find((x) => x._id === service._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
     const { data } = await axios.get(`/api/services/${service._id}`);
-    if (data.countInStock < quantity) {
+    if (data.countInAvailable < quantity) {
       window.alert('Sorry. Service is not avilable');
       return;
     }

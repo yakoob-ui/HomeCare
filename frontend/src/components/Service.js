@@ -18,7 +18,7 @@ function Service(props) {
     const existItem = cartItems.find((x) => x._id === service._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
     const { data } = await axios.get(`/api/services/${item._id}`);
-    if (data.countInStock < quantity) {
+    if (data.countInAvailable < quantity) {
       window.alert('Sorry. Service is out avilable');
       return;
     }

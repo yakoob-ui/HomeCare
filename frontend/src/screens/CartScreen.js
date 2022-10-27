@@ -77,7 +77,7 @@ export default function CartScreen() {
                         onClick={() =>
                           updateCartHandler(item, item.quantity + 1)
                         }
-                        disabled={item.quantity === item.countInStock}
+                        disabled={item.quantity === item.countInAvailable}
                       >
                         <i className="fas fa-plus-circle"></i>
                       </Button>
