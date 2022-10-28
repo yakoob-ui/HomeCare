@@ -78,6 +78,10 @@ main {
   transition: 0.5s;
 }
 
+.text-bold {
+  font-weight: bold;
+}
+
 .site-container {
   transition: 0.4s;
 }
