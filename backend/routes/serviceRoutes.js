@@ -1,4 +1,5 @@
 import express from 'express';
+import expressAsyncHandler from 'express-async-handler';
 import Service from '../models/serviceModel.js';
 
 const serviceRouter = express.Router();
@@ -7,6 +8,14 @@ serviceRouter.get('/', async (req, res) => {
   const services = await Service.find();
   res.send(services);
 });
+
+serviceRouter.get(
+  '/categories',
+  expressAsyncHandler(async (req, res) => {
+    const categories = await Service.find().distinct('category');
+    res.send(categories);
+  })
+);
 
 serviceRouter.get('/slug/:slug', async (req, res) => {
   const service = await Service.findOne({ slug: req.params.slug });

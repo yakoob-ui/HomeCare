@@ -53,7 +53,7 @@ const data = {
       // _id: '3',
       name: 'Kitchen maintenance',
       slug: 'kitchen-maintenance',
-      category: 'plumbing',
+      category: 'Kitchen',
       image: '/images/p3.jpg',
       price: 800,
       countInAvailable: 0,
