@@ -1,6 +1,7 @@
 import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import Service from '../models/serviceModel.js';
+import { isAuth } from '../utils.js';
 
 const serviceRouter = express.Router();
 
@@ -8,6 +9,27 @@ serviceRouter.get('/', async (req, res) => {
   const services = await Service.find();
   res.send(services);
 });
+
+serviceRouter.get(
+  '/admin',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const { query } = req;
+    const page = query.page || 1;
+    const pageSize = query.pageSize || PAGE_SIZE;
+
+    const services = await Service.find()
+      .skip(pageSize * (page - 1))
+      .limit(pageSize);
+    const countServices = await Service.countDocuments();
+    res.send({
+      services,
+      countServices,
+      page,
+      pages: Math.ceil(countServices / pageSize),
+    });
+  })
+);
 
 const PAGE_SIZE = 3;
 serviceRouter.get(
