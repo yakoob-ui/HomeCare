@@ -42,7 +42,7 @@ serviceRouter.post(
       image: '/images/p1.jpg',
       price: 0,
       countInAvailable: 0,
-      provider: 'sample brand',
+      provider: 'sample provider',
       rating: 0,
       numReviews: 0,
       discription: 'sample description',

@@ -120,6 +120,7 @@ export default function ServiceListScreen() {
                 <th>PRICE</th>
                 <th>CATEGORY</th>
                 <th>PROVIDER</th>
+                <th>ACTIONS</th>
               </tr>
             </thead>
             <tbody>
@@ -130,6 +131,15 @@ export default function ServiceListScreen() {
                   <td>{service.price}</td>
                   <td>{service.category}</td>
                   <td>{service.provider}</td>
+                  <td>
+                    <Button
+                      type="button"
+                      variant="light"
+                      onClick={() => navigate(`/admin/service/${service._id}`)}
+                    >
+                      Edit
+                    </Button>
+                  </td>
                 </tr>
               ))}
             </tbody>

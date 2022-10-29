@@ -31,6 +31,7 @@ import AdminRoute from './components/AdminRoute';
 import ProviderRoute from './components/ProviderRoute';
 import ProviderServiceListScreen from './screens/ProviderServiceListScreen';
 import ServiceListScreen from './screens/ServiceListScreen';
+import ServiceEditScreen from './screens/ServiceEditScreen';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -226,6 +227,14 @@ function App() {
                 element={
                   <AdminRoute>
                     <ServiceListScreen />
+                  </AdminRoute>
+                }
+              ></Route>
+              <Route
+                path="/admin/service/:id"
+                element={
+                  <AdminRoute>
+                    <ServiceEditScreen />
                   </AdminRoute>
                 }
               ></Route>
