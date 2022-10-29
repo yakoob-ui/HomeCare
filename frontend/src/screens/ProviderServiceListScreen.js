@@ -34,17 +34,40 @@ const reducer = (state, action) => {
       };
     case 'CREATE_FAIL':
       return { ...state, loadingCreate: false };
+    case 'DELETE_REQUEST':
+      return { ...state, loadingDelete: true, successDelete: false };
+    case 'DELETE_SUCCESS':
+      return {
+        ...state,
+        loadingDelete: false,
+        successDelete: true,
+      };
+    case 'DELETE_FAIL':
+      return { ...state, loadingDelete: false, successDelete: false };
+
+    case 'DELETE_RESET':
+      return { ...state, loadingDelete: false, successDelete: false };
 
     default:
       return state;
   }
 };
-export default function ProviderServiceListScreen() {
-  const [{ loading, error, services, pages, loadingCreate }, dispatch] =
-    useReducer(reducer, {
-      loading: true,
-      error: '',
-    });
+export default function ServiceListScreen() {
+  const [
+    {
+      loading,
+      error,
+      services,
+      pages,
+      loadingCreate,
+      loadingDelete,
+      successDelete,
+    },
+    dispatch,
+  ] = useReducer(reducer, {
+    loading: true,
+    error: '',
+  });
 
   const navigate = useNavigate();
   const { search } = useLocation();
@@ -70,8 +93,12 @@ export default function ProviderServiceListScreen() {
         dispatch({ type: 'FETCH_SUCCESS', payload: data });
       } catch (err) {}
     };
-    fetchData();
-  }, [page, userInfo]);
+    if (successDelete) {
+      dispatch({ type: 'DELETE_RESET' });
+    } else {
+      fetchData();
+    }
+  }, [page, userInfo, successDelete]);
 
   const createHandler = async () => {
     if (window.confirm('Are you sure to create?')) {
@@ -96,6 +123,23 @@ export default function ProviderServiceListScreen() {
     }
   };
 
+  const deleteHandler = async (service) => {
+    if (window.confirm('Are you sure to delete?')) {
+      try {
+        await axios.delete(`/api/services/${service._id}`, {
+          headers: { Authorization: `Bearer ${userInfo.token}` },
+        });
+        toast.success('service deleted successfully');
+        dispatch({ type: 'DELETE_SUCCESS' });
+      } catch (err) {
+        toast.error(getError(error));
+        dispatch({
+          type: 'DELETE_FAIL',
+        });
+      }
+    }
+  };
+
   return (
     <div>
       <Row>
@@ -111,6 +155,7 @@ export default function ProviderServiceListScreen() {
         </Col>
       </Row>
       {loadingCreate && <LoadingBox></LoadingBox>}{' '}
+      {loadingDelete && <LoadingBox></LoadingBox>}{' '}
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (
@@ -145,6 +190,14 @@ export default function ProviderServiceListScreen() {
                       }
                     >
                       Edit
+                    </Button>
+                    &nbsp;
+                    <Button
+                      type="button"
+                      variant="light"
+                      onClick={() => deleteHandler(service)}
+                    >
+                      Delete
                     </Button>
                   </td>
                 </tr>
