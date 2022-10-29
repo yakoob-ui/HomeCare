@@ -96,7 +96,7 @@ function ServiceScreen() {
             </ListGroup.Item>
             <ListGroup.Item>Pirce : ${service.price}</ListGroup.Item>
             <ListGroup.Item>
-              Description:
+              Discription:
               <p>{service.discription}</p>
             </ListGroup.Item>
           </ListGroup>

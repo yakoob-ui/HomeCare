@@ -52,6 +52,29 @@ serviceRouter.post(
   })
 );
 
+serviceRouter.put(
+  '/:id',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const serviceId = req.params.id;
+    const service = await Service.findById(serviceId);
+    if (service) {
+      service.name = req.body.name;
+      service.slug = req.body.slug;
+      service.price = req.body.price;
+      service.image = req.body.image;
+      service.category = req.body.category;
+      service.provider = req.body.provider;
+      service.countInAvailable = req.body.countInAvailable;
+      service.discription = req.body.discription;
+      await service.save();
+      res.send({ message: 'Service Updated' });
+    } else {
+      res.status(404).send({ message: 'Service Not Found' });
+    }
+  })
+);
+
 const PAGE_SIZE = 3;
 serviceRouter.get(
   '/search',
