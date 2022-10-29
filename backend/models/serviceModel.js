@@ -12,6 +12,7 @@ const serviceSchema = new mongoose.Schema(
     countInAvailable: { type: Number, required: true },
     rating: { type: Number, required: true },
     numReviews: { type: Number, required: true },
+    user_id: { type: String },
   },
   {
     timestamps: true,

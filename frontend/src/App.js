@@ -32,6 +32,7 @@ import ProviderRoute from './components/ProviderRoute';
 import ProviderServiceListScreen from './screens/ProviderServiceListScreen';
 import ServiceListScreen from './screens/ServiceListScreen';
 import ServiceEditScreen from './screens/ServiceEditScreen';
+import ProviderServiceEditScreen from './screens/ProviderServiceEditScreen';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -137,10 +138,10 @@ function App() {
 
                   {userInfo && userInfo.roleName === 'provider' && (
                     <NavDropdown title="Provider" id="provider-nav-dropdown">
-                      <LinkContainer to="/provider/servicelist">
+                      <LinkContainer to="/provider/services">
                         <NavDropdown.Item>Services</NavDropdown.Item>
                       </LinkContainer>
-                      <LinkContainer to="/provider/orderlist">
+                      <LinkContainer to="/provider/orders">
                         <NavDropdown.Item>Orders</NavDropdown.Item>
                       </LinkContainer>
                     </NavDropdown>
@@ -241,10 +242,18 @@ function App() {
 
               {/* Provider Routes */}
               <Route
-                path="/provider/servicelist"
+                path="/provider/services"
                 element={
                   <ProviderRoute>
                     <ProviderServiceListScreen />
+                  </ProviderRoute>
+                }
+              ></Route>
+              <Route
+                path="/provider/service/:id"
+                element={
+                  <ProviderRoute>
+                    <ServiceEditScreen />
                   </ProviderRoute>
                 }
               ></Route>

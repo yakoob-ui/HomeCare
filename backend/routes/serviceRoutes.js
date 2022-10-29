@@ -17,8 +17,10 @@ serviceRouter.get(
     const { query } = req;
     const page = query.page || 1;
     const pageSize = query.pageSize || PAGE_SIZE;
+    const user_id = query.user_id || '';
+    const user_filter = user_id && user_id !== 'all' ? { user_id } : {};
 
-    const services = await Service.find()
+    const services = await Service.find(user_filter)
       .skip(pageSize * (page - 1))
       .limit(pageSize);
     const countServices = await Service.countDocuments();
@@ -67,6 +69,7 @@ serviceRouter.put(
       service.provider = req.body.provider;
       service.countInAvailable = req.body.countInAvailable;
       service.discription = req.body.discription;
+      service.user_id = req.body.user_id;
       await service.save();
       res.send({ message: 'Service Updated' });
     } else {
@@ -134,12 +137,10 @@ serviceRouter.get(
       ...priceFilter,
       ...ratingFilter,
     };
-    console.log('dbQuery', dbQuery);
     const services = await Service.find(dbQuery)
       .sort(sortOrder)
       .skip(pageSize * (page - 1))
       .limit(pageSize);
-    console.log('services', services);
 
     const countServices = await Service.countDocuments(dbQuery);
     res.send({

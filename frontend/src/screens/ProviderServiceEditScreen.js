@@ -111,7 +111,7 @@ export default function ServiceEditScreen() {
         type: 'UPDATE_SUCCESS',
       });
       toast.success('Service updated successfully');
-      navigate('/admin/services');
+      navigate('/provider/services');
     } catch (err) {
       toast.error(getError(err));
       dispatch({ type: 'UPDATE_FAIL' });
