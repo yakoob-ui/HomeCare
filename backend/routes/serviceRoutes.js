@@ -31,6 +31,27 @@ serviceRouter.get(
   })
 );
 
+serviceRouter.post(
+  '/',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const newService = new Service({
+      name: 'sample name ' + Date.now(),
+      slug: 'sample-name-' + Date.now(),
+      category: 'sample category',
+      image: '/images/p1.jpg',
+      price: 0,
+      countInAvailable: 0,
+      provider: 'sample brand',
+      rating: 0,
+      numReviews: 0,
+      discription: 'sample description',
+    });
+    const service = await newService.save();
+    res.send({ message: 'Service Created', service });
+  })
+);
+
 const PAGE_SIZE = 3;
 serviceRouter.get(
   '/search',
