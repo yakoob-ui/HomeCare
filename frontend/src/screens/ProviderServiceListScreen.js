@@ -86,7 +86,7 @@ export default function ProviderServiceListScreen() {
         );
         toast.success('service created successfully');
         dispatch({ type: 'CREATE_SUCCESS' });
-        navigate(`/admin/service/${data.service._id}`);
+        navigate(`/provider/service/${data.service._id}`);
       } catch (err) {
         toast.error(getError(error));
         dispatch({
@@ -140,7 +140,9 @@ export default function ProviderServiceListScreen() {
                     <Button
                       type="button"
                       variant="light"
-                      onClick={() => navigate(`/admin/service/${service._id}`)}
+                      onClick={() =>
+                        navigate(`/provider/service/${service._id}`)
+                      }
                     >
                       Edit
                     </Button>
@@ -154,7 +156,7 @@ export default function ProviderServiceListScreen() {
               <Link
                 className={x + 1 === Number(page) ? 'btn text-bold' : 'btn'}
                 key={x + 1}
-                to={`/admin/services?page=${x + 1}`}
+                to={`/provider/services?page=${x + 1}`}
               >
                 {x + 1}
               </Link>
