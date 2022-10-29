@@ -78,6 +78,20 @@ serviceRouter.put(
   })
 );
 
+serviceRouter.delete(
+  '/:id',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const service = await Service.findById(req.params.id);
+    if (service) {
+      await service.remove();
+      res.send({ message: ' Service Deleted' });
+    } else {
+      res.status(404).send({ message: 'Service Not Found' });
+    }
+  })
+);
+
 const PAGE_SIZE = 3;
 serviceRouter.get(
   '/search',
