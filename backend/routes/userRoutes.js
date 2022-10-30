@@ -6,6 +6,15 @@ import { isAuth, generateToken } from '../utils.js';
 
 const userRouter = express.Router();
 
+userRouter.get(
+  '/',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const users = await User.find({});
+    res.send(users);
+  })
+);
+
 userRouter.post(
   '/signin',
   expressAsyncHandler(async (req, res) => {
