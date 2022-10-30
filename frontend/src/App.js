@@ -138,17 +138,6 @@ function App() {
                       </LinkContainer>
                     </NavDropdown>
                   )}
-
-                  {userInfo && userInfo.roleName === 'provider' && (
-                    <NavDropdown title="Provider" id="provider-nav-dropdown">
-                      <LinkContainer to="/provider/services">
-                        <NavDropdown.Item>Services</NavDropdown.Item>
-                      </LinkContainer>
-                      <LinkContainer to="/provider/orders">
-                        <NavDropdown.Item>Orders</NavDropdown.Item>
-                      </LinkContainer>
-                    </NavDropdown>
-                  )}
                 </Nav>
               </Navbar.Collapse>
             </Container>
@@ -264,24 +253,6 @@ function App() {
                   <AdminRoute>
                     <UserEditScreen />
                   </AdminRoute>
-                }
-              ></Route>
-
-              {/* Provider Routes */}
-              <Route
-                path="/provider/services"
-                element={
-                  <ProviderRoute>
-                    <ProviderServiceListScreen />
-                  </ProviderRoute>
-                }
-              ></Route>
-              <Route
-                path="/provider/service/:id"
-                element={
-                  <ProviderRoute>
-                    <ServiceEditScreen />
-                  </ProviderRoute>
                 }
               ></Route>
 
