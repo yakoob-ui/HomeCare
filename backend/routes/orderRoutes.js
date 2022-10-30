@@ -5,6 +5,16 @@ import User from '../models/userModel.js';
 import Service from '../models/serviceModel.js';
 import { isAuth } from '../utils.js';
 const orderRouter = express.Router();
+
+orderRouter.get(
+  '/',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const orders = await Order.find().populate('user', 'name');
+    res.send(orders);
+  })
+);
+
 orderRouter.post(
   '/',
   isAuth,
