@@ -35,6 +35,7 @@ import ServiceEditScreen from './screens/ServiceEditScreen';
 import ProviderServiceEditScreen from './screens/ProviderServiceEditScreen';
 import OrderListScreen from './screens/OrderListScreen';
 import UserListScreen from './screens/UserListScreen';
+import UserEditScreen from './screens/UserEditScreen';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -121,7 +122,7 @@ function App() {
                       Sign In
                     </Link>
                   )}
-                  {userInfo && userInfo.roleName === 'admin' && (
+                  {userInfo && userInfo.isAdmin && (
                     <NavDropdown title="Admin" id="admin-nav-dropdown">
                       <LinkContainer to="/admin/dashboard">
                         <NavDropdown.Item>Dashboard</NavDropdown.Item>
@@ -254,6 +255,14 @@ function App() {
                 element={
                   <AdminRoute>
                     <UserListScreen />
+                  </AdminRoute>
+                }
+              ></Route>
+              <Route
+                path="/admin/user/:id"
+                element={
+                  <AdminRoute>
+                    <UserEditScreen />
                   </AdminRoute>
                 }
               ></Route>

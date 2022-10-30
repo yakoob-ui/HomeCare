@@ -38,7 +38,6 @@ orderRouter.post(
 orderRouter.get(
   '/summary',
   isAuth,
-  //roleName === 'admin',
   expressAsyncHandler(async (req, res) => {
     const orders = await Order.aggregate([
       {

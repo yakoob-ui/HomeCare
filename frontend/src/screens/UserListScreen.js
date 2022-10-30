@@ -4,6 +4,9 @@ import { Helmet } from 'react-helmet-async';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { Store } from '../Store';
+import Button from 'react-bootstrap/Button';
+import { useNavigate } from 'react-router-dom';
+
 import { getError } from '../utils';
 
 const reducer = (state, action) => {
@@ -24,6 +27,7 @@ const reducer = (state, action) => {
   }
 };
 export default function UserListScreen() {
+  const navigate = useNavigate();
   const [{ loading, error, users }, dispatch] = useReducer(reducer, {
     loading: true,
     error: '',
@@ -76,8 +80,16 @@ export default function UserListScreen() {
                 <td>{user._id}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
-                <td>{user.roleName === 'admin' ? 'YES' : 'NO'}</td>
-                <td></td>
+                <td>{user.isAdmin ? 'YES' : 'NO'}</td>
+                <td>
+                  <Button
+                    type="button"
+                    variant="light"
+                    onClick={() => navigate(`/admin/user/${user._id}`)}
+                  >
+                    Edit
+                  </Button>
+                </td>
               </tr>
             ))}
           </tbody>
