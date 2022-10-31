@@ -43,6 +43,7 @@ export default function ProfileScreen() {
           email,
           password,
         },
+
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         }
@@ -99,6 +100,7 @@ export default function ProfileScreen() {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </Form.Group>
+
         <div className="mb-3">
           <Button type="submit">Update</Button>
         </div>

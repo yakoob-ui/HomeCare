@@ -28,11 +28,9 @@ import SearchScreen from './screens/SearchScreen';
 import ProtectedRoute from './components/ProtectedRoute';
 import DashboardScreen from './screens/DashboardScreen';
 import AdminRoute from './components/AdminRoute';
-import ProviderRoute from './components/ProviderRoute';
 import ProviderServiceListScreen from './screens/ProviderServiceListScreen';
 import ServiceListScreen from './screens/ServiceListScreen';
 import ServiceEditScreen from './screens/ServiceEditScreen';
-import ProviderServiceEditScreen from './screens/ProviderServiceEditScreen';
 import OrderListScreen from './screens/OrderListScreen';
 import UserListScreen from './screens/UserListScreen';
 import UserEditScreen from './screens/UserEditScreen';
@@ -121,6 +119,16 @@ function App() {
                     <Link className="nav-link" to="/signin">
                       Sign In
                     </Link>
+                  )}
+                  {userInfo && userInfo.isProvider && (
+                    <NavDropdown title="Provider" id="provider-nav-dropdown">
+                      <LinkContainer to="/services/provider">
+                        <NavDropdown.Item>Services</NavDropdown.Item>
+                      </LinkContainer>
+                      <LinkContainer to="/orders/provider">
+                        <NavDropdown.Item>Orders</NavDropdown.Item>
+                      </LinkContainer>
+                    </NavDropdown>
                   )}
                   {userInfo && userInfo.isAdmin && (
                     <NavDropdown title="Admin" id="admin-nav-dropdown">
@@ -252,6 +260,24 @@ function App() {
                 element={
                   <AdminRoute>
                     <UserEditScreen />
+                  </AdminRoute>
+                }
+              ></Route>
+
+              {/* Admin Routes */}
+              <Route
+                path="/services/provider"
+                element={
+                  <AdminRoute>
+                    <ServiceListScreen />
+                  </AdminRoute>
+                }
+              ></Route>
+              <Route
+                path="/orders/provider"
+                element={
+                  <AdminRoute>
+                    <OrderListScreen />
                   </AdminRoute>
                 }
               ></Route>
